@@ -1,0 +1,52 @@
+---
+title: "Developing Data Product Project week 2"
+author: "Nsi J."
+date: "17 juillet 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+
+# Context of the project    
+- Create a web page using R Markdown that features a map created with Leaflet.
+- Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+
+## Requirements of the project    
+The webpage must contain the date that you created the document, and it must contain a map created with Leaflet. 
+
+
+**Interactive map created on 17 July 2017 based on Christmas markets in France during 2016**     
+
+
+```{r Christmas-Markets_in_France, setup,fig.keep="all", fig.show="asis"}
+library(leaflet)
+library(dplyr)
+
+# Date of the map
+CreationDate <-date()
+CreationDate
+
+XmasMarketIcon <- makeIcon(iconUrl="http://www.tappenbeck.net/osm/maps/icons/xmasmarket.png", iconWidth = 31*215/230, iconHeight = 31, iconAnchorX = 31*215/230/2, iconAnchorY = 16)
+
+XmasMarketLatLong <- data.frame( lat = c(45.74766, 45.19294, 48.00028, 48.87489), lng = c(5.79714, 5.70925, 6.32449, -2.37669))
+
+
+XmasMarketSites <- c( 
+  "<a href='https://www.noel.org/Rhone-Alpes/Chambery'>Auvergne Place 
+   Saint-Léger</a>", 
+  "<a href='http://www.marches-noel.org/marche-de-noel-a-grenoble/'> Grenoble
+   Place Du Docteur Martin</a>",
+  "<a href='http://www.marchedenoel-plombieres.com/'>Grand Est Strasbourg </a>",
+  "<a href='https://noel.org/Picardie/Saint-Sauveur-80/'> Saint-Helier Place
+   Saint-Sauveur </a>"
+                )
+
+ XmasMarketLatLong %>% 
+          leaflet() %>% 
+          addTiles() %>% 
+          addMarkers(icon = XmasMarketIcon, popup = XmasMarketSites)
+ 
+```
+
